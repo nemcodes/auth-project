@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import path, { join } from "path";
 import { fileURLToPath } from "url";
-const serverless = require("serverless-http");
+import serverless from "serverless-http";
 
 import { connectDB } from "./db/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
@@ -44,6 +44,6 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-module.exports = serverless(app);
+export const handler = serverless(app);
 
 export default app;
