@@ -61,5 +61,23 @@ npm start
 
 ---
 
+### 🚀 Deployment Instructions
+
+#### Deploying to Render
+
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Configure the service:
+   - **Build Command**: `npm run build`
+   - **Start Command**: `npm start`
+   - **Environment Variables**: Add your MongoDB URI, JWT secret, and other environment variables
+
+The deployment will:
+1. Install dependencies for both backend and frontend
+2. Build the React frontend
+3. Start the Express server which will serve both the API and the frontend
+
+---
+
 Would you like me to add a short **“Future Improvements”** section (like adding social login, admin dashboard, etc.) to make it feel more complete for recruiters?
 
