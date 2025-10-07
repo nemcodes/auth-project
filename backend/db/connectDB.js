@@ -1,24 +1,21 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
-let isConnected;
+const dbURI = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@${process.env.CLUSTER}.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority&appName=${process.env.APP_NAME}` ;
 
 export const connectDB = async () => {
-  if (isConnected) {
-    console.log("=> Using existing database connection");
-    return;
-  }
-
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    isConnected = conn.connections[0].readyState;
-    console.log(`MongoDB connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error.message);
-    throw new Error("DB connection failed");
-  }
+    try {
+        await mongoose.connect(dbURI, {
+            serverSelectionTimeoutMS: 15000,
+        });
+        console.log(' Connected to Florence');
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+    }
 };
 
-export default connectDB;
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB runtime error:', err);
+});
+
